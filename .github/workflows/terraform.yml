@@ -30,11 +30,18 @@ jobs:
 
       - name: 🧩 HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.0
-        
-      - name: 🔑 Login to Azure
+      
+      - name: Azure login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+          enable-AzPSSession: true  
+      # - name: 🔑 Login to Azure
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: 🏗️ Terraform Init
         id: init

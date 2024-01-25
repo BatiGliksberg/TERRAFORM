@@ -1,12 +1,32 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name      = "NetworkWatcherRG"
+    storage_account_name     = "myfirsttrail"
+    container_name           = "terraform-demo"
+    key                      = "terraform.tfstate"
+  }
+  
+}
+
 provider "azurerm" {
-  subscription_id=var.subscription_id
   features {
-    key_vault {
-      purge_soft_delete_on_destroy    = true
-      recover_soft_deleted_key_vaults = true
+    resource_group {
+      prevent_deletion_if_contains_resources = false
     }
   }
+
+  subscription_id = var.subscription_id
 }
+
+# provider "azurerm" {
+#   subscription_id=var.subscription_id
+#   features {
+#     key_vault {
+#       purge_soft_delete_on_destroy    = true
+#       recover_soft_deleted_key_vaults = true
+#     }
+#   }
+# }
 
 resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name

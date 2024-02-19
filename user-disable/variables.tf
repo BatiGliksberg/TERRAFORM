@@ -20,62 +20,35 @@ variable key_vault_resource_group_name {
 
 variable rg_name {
   type    = string
-  default = "rg-user-disable-automation"
+  default = "rg-try-user-disable-automation"
 }
 
 variable rg_location {  
-  type      = string
-  default   =   "West Europe"
+  type    = string
+  default = "West Europe"
 }
 
 variable storage_account_name {
   type    = string
-  default = "stuserdisableautomation"
+  default = "sttryuserdisableautomation"
 }
-
-
-
-
-variable key_vault_secret_name {
-  type        = string
-  default     = "CONNECTION-STRING-USER-DISABLE"
-}
-
 
 variable app_service_plan_name{
-  type = string
-  default = "app-user-disable"
+  type    = string
+  default = "app-try-user-disable-automation"
 }
 
 variable function_app_name {
-  type  = string
-  default = "func-user-disable"
+  type    = string
+  default = "func-try-user-disable-automation"
 }
-
-variable "tenant_id" {
-  type=string
-}
-
-variable "client_id" {
-  type=string
-}
-
-variable "client_secret" {
-  type=string
-}
-
-variable "application_id" {
-  type = string
-}
-
 
 variable IMAGE_NAME {
-  type        = string
-  default     = "mcr.microsoft.com/azure-functions/dotnet"
+  type    = string
+  default = "mcr.microsoft.com/azure-functions/dotnet"
 }
 
 variable IMAGE_TAG {
-  type        = string
-  default     = "4-appservice-quickstart"
+  type    = string
+  default = "4-appservice-quickstart"
 }
-

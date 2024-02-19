@@ -16,12 +16,6 @@ data "azurerm_key_vault" "key_vault" {
   resource_group_name = var.key_vault_resource_group_name
 }
 
-resource "azurerm_key_vault_secret" "key_vault_secret" {
-  name         = var.key_vault_secret_name
-  value        = azurerm_storage_account.storage_account.primary_connection_string
-  key_vault_id = data.azurerm_key_vault.key_vault.id
-}
-
 resource "azurerm_service_plan" "service_plan" {
   name                = var.app_service_plan_name
   resource_group_name = azurerm_storage_account.storage_account.resource_group_name
@@ -30,34 +24,31 @@ resource "azurerm_service_plan" "service_plan" {
   sku_name            = "P1v2"
 }
 
-resource "azurerm_linux_function_app" "function_app" {
-  name                = var.function_app_name
-  resource_group_name = azurerm_storage_account.storage_account.resource_group_name
-  location            = azurerm_storage_account.storage_account.location
-
-  storage_account_name       = azurerm_storage_account.storage_account.name
-  storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
-  service_plan_id            = azurerm_service_plan.service_plan.id
+resource "azurerm_linux_function_app" "linux_function_app" {
+  name                        = var.function_app_name
+  resource_group_name         = azurerm_storage_account.storage_account.resource_group_name
+  location                    = azurerm_storage_account.storage_account.location
+  storage_account_name        = azurerm_storage_account.storage_account.name
+  storage_account_access_key  = azurerm_storage_account.storage_account.primary_access_key
+  service_plan_id             = azurerm_service_plan.service_plan.id
   functions_extension_version = "~4"
 
   app_settings =  {
     FUNCTIONS_WORKER_RUNTIME = "python"
-
     KEYVAULT_URI = data.azurerm_key_vault.key_vault.vault_uri
-    TENANT_ID = var.tenant_id
-    CLIENT_ID = var.client_id
-    CLIENT_SECRET = var.client_secret
-    APPLICATION_ID = var.application_id
-
-    https_only                          = true
-    DOCKER_REGISTRY_SERVER_URL          = var.DOCKER_REGISTRY_SERVER_URL
-    DOCKER_REGISTRY_SERVER_USERNAME     = var.DOCKER_REGISTRY_SERVER_USERNAME
-    DOCKER_REGISTRY_SERVER_PASSWORD     = var.DOCKER_REGISTRY_SERVER_PASSWORD
+    TENANT_ID = " "
+    CLIENT_ID = " "
+    CLIENT_SECRET = " "
+    APPLICATION_ID = " "
+    https_only = true
+    DOCKER_REGISTRY_SERVER_URL = var.DOCKER_REGISTRY_SERVER_URL
+    DOCKER_REGISTRY_SERVER_USERNAME = var.DOCKER_REGISTRY_SERVER_USERNAME
+    DOCKER_REGISTRY_SERVER_PASSWORD = var.DOCKER_REGISTRY_SERVER_PASSWORD
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
   } 
 
   site_config {
-    always_on         = true
+    always_on = true
     application_stack {
       docker {
         registry_url = var.DOCKER_REGISTRY_SERVER_URL
@@ -80,7 +71,7 @@ resource "azurerm_linux_function_app_slot" "linux_function_app_slot" {
   storage_account_name       = azurerm_storage_account.storage_account.name
   storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
   site_config {
-    always_on         = true
+    always_on = true
     application_stack {
       docker {
         registry_url = var.DOCKER_REGISTRY_SERVER_URL
@@ -91,9 +82,7 @@ resource "azurerm_linux_function_app_slot" "linux_function_app_slot" {
       }
     }
   }
-
 }
-
 
 data "azurerm_client_config" "current_client" {}
 
@@ -109,6 +98,4 @@ resource "azurerm_key_vault_access_policy" "principal" {
   secret_permissions = [
     "Get",
   ]
-
 }
-

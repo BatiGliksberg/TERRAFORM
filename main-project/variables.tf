@@ -13,18 +13,3 @@ variable subscription_id {
   type = string
 }
 
-variable "TENANT_ID" {
-  type = string
-}
-
-variable "CLIENT_ID" {
-  type = string
-}
-
-variable "CLIENT_SECRET" {
-  type = string
-}
-
-variable "APPLICATION_ID" {
-  type = string
-}

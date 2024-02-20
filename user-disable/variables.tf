@@ -30,7 +30,7 @@ variable rg_location {
 
 variable storage_account_name {
   type    = string
-  default = "sttryuserdisableautomation"
+  default = "sttryuserdisable"
 }
 
 variable app_service_plan_name{

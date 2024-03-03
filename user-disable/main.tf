@@ -40,6 +40,8 @@ resource "azurerm_linux_function_app" "linux_function_app" {
     CLIENT_ID = " "
     CLIENT_SECRET = " "
     APPLICATION_ID = " "
+    DEPARTMENT = " "
+    RANGE_OF_DAYS_FROM_EXPIRATION_DATE = " "
     https_only = true
     DOCKER_REGISTRY_SERVER_URL = var.DOCKER_REGISTRY_SERVER_URL
     DOCKER_REGISTRY_SERVER_USERNAME = var.DOCKER_REGISTRY_SERVER_USERNAME

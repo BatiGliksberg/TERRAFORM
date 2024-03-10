@@ -40,7 +40,7 @@ variable app_service_plan_name{
 
 variable function_app_name {
   type    = string
-  default = "func-user-disable-try"
+  default = "func-user-disable-try2"
 }
 
 variable IMAGE_NAME {
